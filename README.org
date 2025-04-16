@@ -1,0 +1,13 @@
+* dwmblocks
+
+Modular status bar for dwm written in c.
+
+The statusbar is made from ~blocks~, which generate text output.
+Blocks are added and removed by editing the ~config.h~ file.
+
+* Clickable modules
+
+Like i3blocks, this build allows you to build in additional actions into your scripts in response to click events.
+See the above linked scripts for examples of this using the ~$BLOCK_BUTTON~ variable.
+
+For this feature to work, you need the appropriate patch in dwm as well. See [[https://dwm.suckless.org/patches/statuscmd/][here]].

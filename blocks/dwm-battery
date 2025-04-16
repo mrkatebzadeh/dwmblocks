@@ -1,0 +1,65 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	3) notify-send "🔋 Battery module" ": discharging
+🛑: not charging
+♻: stagnant charge
+🔌: charging
+: charged
+❗: battery very low!
+- Scroll to change adjust xbacklight." ;;
+	4) xbacklight -inc 10 ;;
+	5) xbacklight -dec 10 ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+batteries=$(ls /sys/class/power_supply/ | grep -i bat)
+if [ -z "$batteries" ]; then
+  echo 
+  exit 1
+fi
+for kk in "${batteries[@]}"; do
+  battery=/sys/class/power_supply/$kk
+	[ -n "${capacity+x}" ] && printf " "
+	capacity=$(cat "$battery/capacity")
+	timeleft=$(acpi -b | awk '{print $5}'| awk -F ":" '{print $1":"$2}')
+	case "$(cat "$battery/status" 2>&1)" in
+    "Full") 
+        status="󰂄" ;;
+    "Discharging") 
+        case 1 in
+            $((capacity >= 95)) ) status="󰁹" ;;  
+            $((capacity >= 70)) ) status="󰁼" ;;  
+            $((capacity >= 60)) ) status="󰁼" ;;  
+            $((capacity >= 50)) ) status="󰁻" ;;  
+            $((capacity >= 40)) ) status="󰁺" ;;  
+            $((capacity >= 30)) ) status="󰁺" ;;  
+            $((capacity >= 20)) ) status="󰁺" ;;  
+            $((capacity >= 10)) ) status="󰁺" ;;  
+            * ) 
+                status="󰁵"  
+                notify-send "Low battery" "$(acpi -b)"
+                ;;
+        esac;;
+    "Charging") 
+        case 1 in
+            $((capacity >= 95)) ) status="󰂅" ;; 
+            $((capacity >= 90)) ) status="󰂆" ;; 
+            $((capacity >= 80)) ) status="󰂄" ;; 
+            $((capacity >= 60)) ) status="󰂄" ;; 
+            $((capacity >= 40)) ) status="󰂃" ;; 
+            $((capacity >= 30)) ) status="󰂂" ;; 
+            $((capacity >= 20)) ) status="󰂁" ;; 
+            * ) status="󰂀" ;;  
+        esac ;;
+    "Not charging") 
+        status="󰁒" ;;  
+    "Unknown") 
+        status="󰂏" ;;  
+    *) 
+        exit 1 ;;
+esac
+
+
+	printf "%s %d%%" "$status" "$capacity"; unset warn
+done && exit 0
