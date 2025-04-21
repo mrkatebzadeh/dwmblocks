@@ -13,7 +13,7 @@ case $BLOCK_BUTTON in
 	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
-batteries=$(ls /sys/class/power_supply/ | grep -i bat)
+batteries=($(ls /sys/class/power_supply/ | grep -i bat))
 if [ -z "$batteries" ]; then
   echo 
   exit 1
@@ -29,12 +29,14 @@ for kk in "${batteries[@]}"; do
     "Discharging") 
         case 1 in
             $((capacity >= 95)) ) status="󰁹" ;;  
-            $((capacity >= 70)) ) status="󰁼" ;;  
-            $((capacity >= 60)) ) status="󰁼" ;;  
-            $((capacity >= 50)) ) status="󰁻" ;;  
-            $((capacity >= 40)) ) status="󰁺" ;;  
-            $((capacity >= 30)) ) status="󰁺" ;;  
-            $((capacity >= 20)) ) status="󰁺" ;;  
+            $((capacity >= 90)) ) status="󰂂" ;;  
+            $((capacity >= 80)) ) status="󰂁" ;;  
+            $((capacity >= 70)) ) status="󰂀" ;;  
+            $((capacity >= 60)) ) status="󰁿" ;;  
+            $((capacity >= 50)) ) status="󰁾" ;;  
+            $((capacity >= 40)) ) status="󰁽" ;;  
+            $((capacity >= 30)) ) status="󰁼" ;;  
+            $((capacity >= 20)) ) status="󰁻" ;;  
             $((capacity >= 10)) ) status="󰁺" ;;  
             * ) 
                 status="󰁵"  
@@ -44,18 +46,21 @@ for kk in "${batteries[@]}"; do
     "Charging") 
         case 1 in
             $((capacity >= 95)) ) status="󰂅" ;; 
-            $((capacity >= 90)) ) status="󰂆" ;; 
-            $((capacity >= 80)) ) status="󰂄" ;; 
-            $((capacity >= 60)) ) status="󰂄" ;; 
-            $((capacity >= 40)) ) status="󰂃" ;; 
-            $((capacity >= 30)) ) status="󰂂" ;; 
-            $((capacity >= 20)) ) status="󰂁" ;; 
+            $((capacity >= 90)) ) status="󰂋" ;; 
+            $((capacity >= 80)) ) status="󰂊" ;; 
+            $((capacity >= 70)) ) status="󰢞" ;; 
+            $((capacity >= 60)) ) status="󰂉" ;; 
+            $((capacity >= 50)) ) status="󰢝" ;; 
+            $((capacity >= 40)) ) status="󰂈" ;; 
+            $((capacity >= 30)) ) status="󰂇" ;; 
+            $((capacity >= 20)) ) status="󰂆" ;; 
+            $((capacity >= 10)) ) status="󰢜" ;; 
             * ) status="󰂀" ;;  
         esac ;;
     "Not charging") 
-        status="󰁒" ;;  
+        status="󱧦" ;;  
     "Unknown") 
-        status="󰂏" ;;  
+        status="󱃍" ;;  
     *) 
         exit 1 ;;
 esac
