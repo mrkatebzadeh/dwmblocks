@@ -1,15 +1,14 @@
 #!/bin/sh
 
 case $BLOCK_BUTTON in
-	3) notify-send "🔋 Battery module" ": discharging
-🛑: not charging
-♻: stagnant charge
-🔌: charging
-: charged
+	3) notify-send "Battery module" "󰁽: discharging
+󱧦: not charging
+󰢞: charging
+󰂄: charged
 ❗: battery very low!
 - Scroll to change adjust xbacklight." ;;
-	4) xbacklight -inc 10 ;;
-	5) xbacklight -dec 10 ;;
+	4) brightnessctl set +10% ;;
+	5) brightnessctl set 10%- ;;
 	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
@@ -39,7 +38,7 @@ for kk in "${batteries[@]}"; do
             $((capacity >= 20)) ) status="󰁻" ;;  
             $((capacity >= 10)) ) status="󰁺" ;;  
             * ) 
-                status="󰁵"  
+                status="󱉞"  
                 notify-send "Low battery" "$(acpi -b)"
                 ;;
         esac;;
@@ -55,7 +54,7 @@ for kk in "${batteries[@]}"; do
             $((capacity >= 30)) ) status="󰂇" ;; 
             $((capacity >= 20)) ) status="󰂆" ;; 
             $((capacity >= 10)) ) status="󰢜" ;; 
-            * ) status="󰂀" ;;  
+            * ) status="󰢜" ;;  
         esac ;;
     "Not charging") 
         status="󱧦" ;;  
