@@ -1,14 +1,14 @@
 static const Block blocks[] = {
 	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
 	/* {"⌨", "dwm-kbselect", 0, 30}, */
-	{"",	"dwm-tasks",	10,	26},
+	/* {"",	"dwm-tasks",	10,	26}, */
 	/* {"",	"dwm-music",	0,	11}, */
-	{"",	"dwm-pacpackages",	0,	8},
-	{"",	"dwm-news",		0,	6},
-	{"",	"dwm-torrent",	20,	7},
+	/* {"",	"dwm-pacpackages",	0,	8}, */
+	/* {"",	"dwm-news",		0,	6}, */
+	/* {"",	"dwm-torrent",	20,	7}, */
 	/* {"",	"dwm-memory",	10,	14}, */
 	/* {"",	"dwm-cpu",		10,	18}, */
-	/* {"",	"dwm-moonphase",	18000,	17}, */
+	/* {"",	"dwm-cpubar",	18000,	17}, */
 	{"",	"dwm-forecast",	18000,	5},
 	{"",	"dwm-mailbox",	180,	12},
 	{"",	"dwm-nettraf",	1,	16},
@@ -27,6 +27,6 @@ static char *delim = " ";
 // eval: (add-hook 'after-save-hook
 //        (lambda ()
 //          (when (string= (file-name-nondirectory (buffer-file-name)) "config.h")
-//            (async-shell-command "sudo make install")))
+// (async-shell-command "sudo make install")))
 //        nil t)
 // End:
